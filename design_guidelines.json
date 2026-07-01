@@ -1,0 +1,170 @@
+{
+  "app_name": "Tidyups Cleaning Service",
+  "personality": "4 Tactile / Playful LIGHT",
+  "personality_one_liner": "A friendly, touchable, and approachable service app that feels cute and trustworthy, anchored by a playful bunny mascot and vibrant magenta/purple accents.",
+  "color": {
+    "surface": { "light": "#FAFAF9", "dark": "#1C1917" },
+    "onSurface": { "light": "#1C1917", "dark": "#FAFAF9" },
+    "surfaceSecondary": { "light": "#FFFFFF", "dark": "#292524" },
+    "onSurfaceSecondary": { "light": "#292524", "dark": "#F5F5F4" },
+    "surfaceTertiary": { "light": "#FDF4FF", "dark": "#4A044E" },
+    "onSurfaceTertiary": { "light": "#86198F", "dark": "#FDF4FF" },
+    "surfaceInverse": { "light": "#1C1917", "dark": "#FAFAF9" },
+    "onSurfaceInverse": { "light": "#FAFAF9", "dark": "#1C1917" },
+    "brand": { "light": "#C026D3", "dark": "#C026D3" },
+    "brandPrimary": { "light": "#D946EF", "dark": "#E879F9" },
+    "onBrandPrimary": { "light": "#FAFAF9", "dark": "#4A044E" },
+    "brandSecondary": { "light": "#A855F7", "dark": "#C084FC" },
+    "onBrandSecondary": { "light": "#FAFAF9", "dark": "#3B0764" },
+    "brandTertiary": { "light": "#FAE8FF", "dark": "#701A75" },
+    "onBrandTertiary": { "light": "#86198F", "dark": "#FAE8FF" },
+    "success": { "light": "#10B981", "dark": "#34D399" },
+    "onSuccess": { "light": "#FFFFFF", "dark": "#064E3B" },
+    "warning": { "light": "#F59E0B", "dark": "#FBBF24" },
+    "onWarning": { "light": "#FFFFFF", "dark": "#78350F" },
+    "error": { "light": "#EF4444", "dark": "#F87171" },
+    "onError": { "light": "#FFFFFF", "dark": "#7F1D1D" },
+    "info": { "light": "#0EA5E9", "dark": "#38BDF8" },
+    "onInfo": { "light": "#FFFFFF", "dark": "#0C4A6E" },
+    "border": { "light": "#E7E5E4", "dark": "#44403C" },
+    "borderStrong": { "light": "#D6D3D1", "dark": "#57534E" },
+    "divider": { "light": "#F5F5F4", "dark": "#292524" }
+  },
+  "typography": {
+    "displayFontFamily": "Fredoka",
+    "textFontFamily": "Nunito",
+    "scale": {
+      "sm": 12,
+      "base": 14,
+      "lg": 16,
+      "xl": 20,
+      "2xl": 24
+    }
+  },
+  "spacing": {
+    "rule": "Generous spacing. Use md or lg for inner padding of cards, and xl for screen outer padding. Touch targets must be chunky and inviting.",
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radius_tokens": {
+    "sm": 6,
+    "md": 12,
+    "lg": 20,
+    "pill": 999
+  },
+  "shadow_tier": "2",
+  "navigation": "stack_only",
+  "icon_set": "Ionicons",
+  "glassmorphism": {
+    "enabled": true,
+    "do's": [
+      "Use over the sticky bottom primary CTA 'Get a Free Quote'/'Submit Request'.",
+      "Use on the floating action button or back buttons if they sit over an image."
+    ],
+    "dont's": [
+      "Do not use on input fields or basic cards.",
+      "Do not over-complicate the quote form with blur."
+    ]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "expo-glass-effect",
+      "android": "expo-blur",
+      "low_end_android_fallback": "solid surfaceSecondary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "screens": [
+    {
+      "name": "Home",
+      "purpose": "Introduce the brand, showcase the bunny mascot with tagline, list service types, and drive users to request a quote.",
+      "states": {
+        "loading": "Spinner centered on surface",
+        "empty": "N/A",
+        "error": "Failed to load services, retry button"
+      },
+      "layout": "Scrollable. Top: Hero image card (with gradient scrim) featuring the cleaning service image, overlaid with the brand mascot image, big Fredoka display text 'Leave The Mess To Us!'. Middle: 2-column grid or list of thick rounded cards for the 4 service types (Standard, Deep, Move In, Move Out) with tinted icon containers. Bottom: Pinned glass container with chunky pill 'Get a Free Quote' CTA."
+    },
+    {
+      "name": "Quote Request Form",
+      "purpose": "A long, scrolling intake form to capture lead details in a friendly, low-friction manner.",
+      "states": {
+        "loading": "Submitting quote spinner overlay",
+        "empty": "N/A",
+        "error": "Form validation errors displayed inline below fields"
+      },
+      "layout": "Scrollable single column. Step-by-step visual feel but in one scrolling view. 1) 'Service Type' via large touchable chips or vertical radio-style thick cards. 2) 'Property Type' via horizontal scrolling pill chips (House, Flat, Studio, Office). 3) Bedrooms & Bathrooms using bold +/- steppers (thick touch targets). 4) Standard text inputs for Name, Phone, Email, Address, Message (with clear labels above inputs). Pinned at bottom: 'Submit Request' pill CTA over a glass bar."
+    },
+    {
+      "name": "Submission Success",
+      "purpose": "Celebrate completion and assure the user they will be contacted.",
+      "states": {
+        "loading": "N/A",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "Full-screen flex center. Large mascot image or big checkmark illustration, celebratory text 'We\\'ll be in touch soon!'. A secondary 'Back to Home' pill button. Playful overshoot spring animation on entry."
+    },
+    {
+      "name": "Admin PIN Entry",
+      "purpose": "Gate the leads list behind a simple numeric passcode.",
+      "states": {
+        "loading": "Verifying...",
+        "empty": "N/A",
+        "error": "Shake animation and 'Incorrect PIN' text"
+      },
+      "layout": "Centered secure entry. 4 large empty circles/dots. Oversized numeric keypad below (1-9, backspace, 0). Very tactile press states on numbers."
+    },
+    {
+      "name": "Admin Leads List",
+      "purpose": "List submitted quotes so the admin can review them and update their status.",
+      "states": {
+        "loading": "Skeleton rows",
+        "empty": "Illustration + 'No leads yet. They\\'ll show up here!'",
+        "error": "Failed to load leads + Retry button"
+      },
+      "layout": "Scrollable list. Each lead is a thick 'surfaceSecondary' card (shadow tier 2, radius lg). Card shows Lead Name, Phone, Service Type, and a colored status pill (New, Contacted, Booked, Closed). Tapping a card expands it or opens a Bottom Sheet to view full details and change the status via a segmented control."
+    }
+  ],
+  "haptics": {
+    "events": {
+      "button_press": "impactLight",
+      "stepper_increment": "impactLight",
+      "stepper_decrement": "impactLight",
+      "chip_select": "selection",
+      "success_screen_entry": "notificationSuccess",
+      "pin_keypress": "selection",
+      "pin_error": "notificationError"
+    }
+  },
+  "images": {
+    "hero_background": {
+      "url": "https://images.unsplash.com/photo-1758273238415-01ec03d9ef27?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MTN8MHwxfHNlYXJjaHwxfHxjbGVhbmluZyUyMHNlcnZpY2UlMjBzcGFya2xpbmclMjBjbGVhbnxlbnwwfHx8fDE3ODIyMTM3NTV8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Woman mopping a bright, modern living room floor"
+    },
+    "mascot_illustration": {
+      "url": "https://images.unsplash.com/photo-1719664246715-512692adf49b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwzfHxyYWJiaXQlMjBtYXNjb3QlMjBjb2xvcmZ1bHxlbnwwfHx8fDE3ODI0MDYyMzN8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Big red and white playful rabbit mascot"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Strictly follow the 'Tactile / Playful' personality with the `brandPrimary` (Fuchsia/Magenta). No AI-generic indigo or navy.",
+    "The Home screen CTA ('Get a Free Quote') and Form CTA ('Submit Request') MUST be sticky at the bottom, layered over a glass/blurred container so content scrolls underneath them seamlessly.",
+    "Form inputs must not be dense web-style forms. Use tactile Mobile UI patterns: oversized +/- steppers for beds/baths, big touchable chips for Property Type, and vertically stacked thick cards for Service Type. Only use text inputs for Name, Contact, Address.",
+    "Apply 'Fredoka' to headings and primary CTA buttons. Use 'Nunito' for body text, form labels, and smaller elements.",
+    "Implement the 'Submission Success' screen with full flex layout, using the mascot_illustration if possible, ensuring it feels celebratory.",
+    "Admin PIN screen should be an oversized, custom tactile numpad, not a native keyboard input. Add haptic feedback on keypress.",
+    "Lead List cards must prominently feature a status tag/badge using semantic colors (e.g., info for New, warning for Contacted, success for Booked).",
+    "Whenever text is overlaid on the hero_background image, use the mandatory gradient-to-dark scrim pattern (transparent to >=70% surfaceInverse) to guarantee contrast.",
+    "Ensure all buttons use the 0.93 press scale animation with an overshoot spring for a bouncy, playful feel."
+  ]
+}
