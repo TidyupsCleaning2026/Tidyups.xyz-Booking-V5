@@ -1,0 +1,33 @@
+{
+  "summary": "First MVP test iteration for Tidyups Cleaning Service. Backend: 14/14 pytest cases pass (health, services list, PIN verify success/failure, lead creation w/ status=New, invalid-email 422, list-leads auth guard + sort, PATCH status update guard + persistence + 404/422). Frontend: end-to-end flow validated via mobile viewport (390x844) — Home screen with hero/mascot/4 service cards/CTA/admin lock renders correctly; Quote form validates missing service, invalid phone, invalid email, then submits and lands on Success screen; Admin PIN screen accepts wrong PIN (shows shake+error), correct 1234 navigates to Leads; Leads list shows 3 leads with correct filter chips + counts, bottom-sheet opens with lead detail, status update to Booked reflects in status-pill. Twilio not configured — SMS gracefully skipped as expected.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "global", "issues": ["Console warns: 'shadow*' style props are deprecated (use boxShadow) — comes from src/theme shadow tokens applied via StyleSheet; harmless on mobile native but noisy on web.", "Console warn from @gorhom/bottom-sheet: props.pointerEvents deprecated (use style.pointerEvents) — third-party library, not blocking."]}
+    ],
+    "react_native_issues": []
+  },
+  "test_report_links": ["/app/backend/tests/test_tidyups_api.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "(Optional polish) Migrate shadow.* tokens in /app/frontend/src/theme/theme.ts to the RN boxShadow API to silence deprecation warning on web preview.",
+    "When Twilio credentials are provided, re-run backend suite and add an SMS-sent assertion (currently intentionally skipped)."
+  ],
+  "critical_code_review_comments": [
+    "server.py list_leads projects out _id via {'_id':0} — good, MongoDB ObjectId not leaked.",
+    "verifyPin() in api.ts returns false on 401 without throwing — matches admin.tsx expectations.",
+    "server.py send_lead_alert uses asyncio.to_thread — correct non-blocking approach for Twilio sync SDK.",
+    "All interactive elements have testID; navigation via expo-router.replace/push works reliably."
+  ],
+  "updated_files": ["/app/backend/tests/test_tidyups_api.py", "/app/test_reports/iteration_1.json", "/app/test_reports/pytest/pytest_results.xml"],
+  "success_rate": {"backend": "100% (14/14)", "frontend": "100% of critical flows"},
+  "seed_data_creation": "3 test leads created in DB during testing (TEST_Jane Doe, TEST_UI Jane, and a pre-existing Test User). All prefixed TEST_ except one seeded by main agent.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Backend URL is EXPO_PUBLIC_BACKEND_URL=https://purple-tidyups.preview.emergentagent.com. Admin PIN=1234 (also in /app/memory/test_credentials.md). Backend tests live at /app/backend/tests/test_tidyups_api.py — reuse fixture 'created_lead' for chained tests. Test DB has TEST_-prefixed leads; safe to leave or clean via mongo shell. Twilio env vars are intentionally empty — do NOT treat SMS as failure.",
+  "rca_of_issue": "N/A — no bugs found in this iteration."
+}
