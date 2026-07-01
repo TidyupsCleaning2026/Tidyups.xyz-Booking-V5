@@ -85,7 +85,9 @@ export const STATUS_COLORS: Record<string, { bg: string; fg: string }> = {
 };
 
 export const IMAGES = {
-  hero: "https://images.unsplash.com/photo-1758273238415-01ec03d9ef27?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MTN8MHwxfHNlYXJjaHwxfHxjbGVhbmluZyUyMHNlcnZpY2UlMjBzcGFya2xpbmclMjBjbGVhbnxlbnwwfHx8fDE3ODIyMTM3NTV8MA&ixlib=rb-4.1.0&q=85",
   mascot:
     "https://images.unsplash.com/photo-1719664246715-512692adf49b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwzfHxyYWJiaXQlMjBtYXNjb3QlMjBjb2xvcmZ1bHxlbnwwfHx8fDE3ODI0MDYyMzN8MA&ixlib=rb-4.1.0&q=85",
 };
+
+export const PHONE_DISPLAY = "(833) TIDY-UPS";
+export const PHONE_TEL = "+18338439877";

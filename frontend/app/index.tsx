@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, useWindowDimensions } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Linking } from "react-native";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
@@ -9,7 +9,9 @@ import { useRouter } from "expo-router";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
 import PressableScale from "@/src/components/PressableScale";
-import { colors, spacing, radius, font, shadow, IMAGES } from "@/src/theme/theme";
+import { colors, spacing, radius, font, shadow, PHONE_DISPLAY, PHONE_TEL } from "@/src/theme/theme";
+
+const LOGO = require("../assets/images/tidyups-logo.png");
 
 const SERVICES = [
   { key: "Standard Cleaning", icon: "sparkles-outline", desc: "Regular refresh for a tidy home", tint: "#FAE8FF" },
@@ -21,7 +23,6 @@ const SERVICES = [
 export default function Home() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { height } = useWindowDimensions();
 
   return (
     <View style={styles.root} testID="home-screen">
@@ -29,11 +30,16 @@ export default function Home() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: insets.bottom + 110 }}
       >
-        {/* Hero */}
-        <View style={[styles.hero, { height: Math.max(340, height * 0.46) }]}>
-          <Image source={IMAGES.hero} style={StyleSheet.absoluteFill} contentFit="cover" transition={300} />
+        {/* Dark brand hero with real logo */}
+        <View style={styles.hero}>
           <LinearGradient
-            colors={["rgba(28,25,23,0.15)", "rgba(28,25,23,0.55)", "rgba(28,25,23,0.9)"]}
+            colors={["#000000", "#1A0821", "#2E0A3A"]}
+            style={StyleSheet.absoluteFill}
+          />
+          <LinearGradient
+            colors={["transparent", "rgba(192,38,211,0.18)"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
             style={StyleSheet.absoluteFill}
           />
           <PressableScale
@@ -44,19 +50,24 @@ export default function Home() {
             <Ionicons name="lock-closed-outline" size={18} color="#fff" />
           </PressableScale>
 
-          <View style={[styles.heroContent, { paddingBottom: spacing.xl }]}>
-            <Animated.View entering={FadeInDown.delay(80)} style={styles.brandRow}>
-              <Image source={IMAGES.mascot} style={styles.mascot} contentFit="cover" transition={300} />
-              <View style={styles.brandBadge}>
-                <Text style={styles.brandBadgeText}>TIDYUPS</Text>
-              </View>
+          <View style={[styles.heroContent, { paddingTop: insets.top + spacing.xl }]}>
+            <Animated.View entering={FadeInDown.delay(60)}>
+              <Image source={LOGO} style={styles.logo} contentFit="contain" transition={300} />
             </Animated.View>
-            <Animated.Text entering={FadeInDown.delay(160)} style={styles.heroTitle}>
-              Leave The Mess{"\n"}To Us!
+            <Animated.Text entering={FadeInDown.delay(160)} style={styles.tagline}>
+              Leave The Mess To Us!
             </Animated.Text>
-            <Animated.Text entering={FadeInDown.delay(240)} style={styles.heroSub}>
-              Book a trusted cleaning crew in seconds. Free, no-obligation quotes.
-            </Animated.Text>
+
+            <Animated.View entering={FadeInDown.delay(240)}>
+              <PressableScale
+                testID="home-call-button"
+                style={styles.callBtn}
+                onPress={() => Linking.openURL(`tel:${PHONE_TEL}`)}
+              >
+                <Ionicons name="call" size={16} color={colors.brandPrimary} />
+                <Text style={styles.callText}>{PHONE_DISPLAY}</Text>
+              </PressableScale>
+            </Animated.View>
           </View>
         </View>
 
@@ -67,11 +78,7 @@ export default function Home() {
 
           <View style={styles.grid}>
             {SERVICES.map((s, i) => (
-              <Animated.View
-                key={s.key}
-                entering={FadeInDown.delay(120 + i * 70)}
-                style={styles.cardWrap}
-              >
+              <Animated.View key={s.key} entering={FadeInDown.delay(120 + i * 70)} style={styles.cardWrap}>
                 <PressableScale
                   testID={`service-card-${i}`}
                   style={styles.card}
@@ -104,11 +111,7 @@ export default function Home() {
 
       {/* Sticky CTA */}
       <BlurView intensity={40} tint="light" style={[styles.ctaBar, { paddingBottom: insets.bottom + spacing.md }]}>
-        <PressableScale
-          testID="home-get-quote-button"
-          style={styles.ctaBtn}
-          onPress={() => router.push("/quote")}
-        >
+        <PressableScale testID="home-get-quote-button" style={styles.ctaBtn} onPress={() => router.push("/quote")}>
           <Text style={styles.ctaText}>Get a Free Quote</Text>
           <Ionicons name="arrow-forward" size={20} color={colors.onBrandPrimary} />
         </PressableScale>
@@ -119,35 +122,45 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.surface },
-  hero: { width: "100%", justifyContent: "flex-end" },
+  hero: {
+    width: "100%",
+    borderBottomLeftRadius: 28,
+    borderBottomRightRadius: 28,
+    overflow: "hidden",
+  },
   adminBtn: {
     position: "absolute",
     right: spacing.lg,
+    zIndex: 2,
     width: 40,
     height: 40,
     borderRadius: radius.pill,
-    backgroundColor: "rgba(0,0,0,0.3)",
+    backgroundColor: "rgba(255,255,255,0.14)",
     alignItems: "center",
     justifyContent: "center",
   },
-  heroContent: { paddingHorizontal: spacing.xl },
-  brandRow: { flexDirection: "row", alignItems: "center", gap: spacing.md, marginBottom: spacing.md },
-  mascot: {
-    width: 52,
-    height: 52,
-    borderRadius: radius.pill,
-    borderWidth: 2,
-    borderColor: "rgba(255,255,255,0.8)",
+  heroContent: { alignItems: "center", paddingBottom: spacing["2xl"], paddingHorizontal: spacing.xl },
+  logo: { width: 260, height: 260 },
+  tagline: {
+    color: "#fff",
+    fontFamily: font.displayBold,
+    fontSize: 22,
+    marginTop: spacing.xs,
+    textAlign: "center",
   },
-  brandBadge: {
-    backgroundColor: colors.brandPrimary,
-    paddingHorizontal: spacing.md,
-    paddingVertical: 6,
+  callBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
+    marginTop: spacing.lg,
+    backgroundColor: "rgba(255,255,255,0.12)",
+    borderWidth: 1,
+    borderColor: "rgba(217,70,239,0.5)",
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
     borderRadius: radius.pill,
   },
-  brandBadgeText: { color: colors.onBrandPrimary, fontFamily: font.textExtra, fontSize: 13, letterSpacing: 1 },
-  heroTitle: { color: "#fff", fontFamily: font.displayBold, fontSize: 40, lineHeight: 44 },
-  heroSub: { color: "rgba(255,255,255,0.9)", fontFamily: font.text, fontSize: 15, marginTop: spacing.sm, lineHeight: 21 },
+  callText: { color: "#fff", fontFamily: font.textBold, fontSize: 15, letterSpacing: 0.5 },
 
   section: { paddingHorizontal: spacing.xl, paddingTop: spacing.xl },
   sectionTitle: { fontFamily: font.displayBold, fontSize: 24, color: colors.onSurface },

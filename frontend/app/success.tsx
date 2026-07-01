@@ -8,7 +8,9 @@ import * as Haptics from "expo-haptics";
 import Animated, { FadeInDown, ZoomIn } from "react-native-reanimated";
 
 import PressableScale from "@/src/components/PressableScale";
-import { colors, spacing, radius, font, shadow, IMAGES } from "@/src/theme/theme";
+import { colors, spacing, radius, font, shadow } from "@/src/theme/theme";
+
+const LOGO = require("../assets/images/tidyups-logo.png");
 
 export default function Success() {
   const insets = useSafeAreaInsets();
@@ -22,7 +24,7 @@ export default function Success() {
     <View style={[styles.root, { paddingTop: insets.top, paddingBottom: insets.bottom }]} testID="success-screen">
       <View style={styles.center}>
         <Animated.View entering={ZoomIn.springify().damping(9)} style={styles.mascotWrap}>
-          <Image source={IMAGES.mascot} style={styles.mascot} contentFit="cover" transition={300} />
+          <Image source={LOGO} style={styles.mascot} contentFit="contain" transition={300} />
           <View style={styles.checkBadge}>
             <Ionicons name="checkmark" size={26} color="#fff" />
           </View>
@@ -55,11 +57,10 @@ const styles = StyleSheet.create({
   center: { flex: 1, alignItems: "center", justifyContent: "center", paddingHorizontal: spacing.xl },
   mascotWrap: { marginBottom: spacing.xl },
   mascot: {
-    width: 140,
-    height: 140,
-    borderRadius: radius.pill,
-    borderWidth: 4,
-    borderColor: colors.brandTertiary,
+    width: 180,
+    height: 180,
+    borderRadius: radius.lg,
+    backgroundColor: "#000",
   },
   checkBadge: {
     position: "absolute",
