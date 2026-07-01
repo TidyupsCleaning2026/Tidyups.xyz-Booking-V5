@@ -106,6 +106,17 @@ export default function Home() {
               </View>
             ))}
           </View>
+
+          <PressableScale
+            testID="home-privacy-link"
+            haptic={false}
+            scaleTo={0.97}
+            style={styles.privacyLink}
+            onPress={() => router.push("/privacy")}
+          >
+            <Ionicons name="lock-closed-outline" size={13} color={colors.mutedText} />
+            <Text style={styles.privacyLinkText}>Privacy Policy</Text>
+          </PressableScale>
         </View>
       </ScrollView>
 
@@ -197,6 +208,21 @@ const styles = StyleSheet.create({
   },
   trustItem: { alignItems: "center", gap: 6 },
   trustText: { fontFamily: font.textSemi, fontSize: 12, color: colors.onBrandTertiary },
+
+  privacyLink: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    marginTop: spacing.lg,
+    paddingVertical: spacing.sm,
+  },
+  privacyLinkText: {
+    fontFamily: font.textSemi,
+    fontSize: 13,
+    color: colors.mutedText,
+    textDecorationLine: "underline",
+  },
 
   ctaBar: {
     position: "absolute",

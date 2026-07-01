@@ -175,6 +175,15 @@ export default function Quote() {
             <Text style={styles.errorText}>{error}</Text>
           </Animated.View>
         )}
+
+        <View style={styles.privacyNote}>
+          <Text style={styles.privacyNoteText}>
+            By submitting, you agree we may contact you about your quote. See our{" "}
+          </Text>
+          <PressableScale testID="quote-privacy-link" haptic={false} scaleTo={0.98} onPress={() => router.push("/privacy")}>
+            <Text style={styles.privacyNoteLink}>Privacy Policy</Text>
+          </PressableScale>
+        </View>
       </KeyboardAwareScrollView>
 
       {/* Sticky CTA */}
@@ -345,6 +354,22 @@ const styles = StyleSheet.create({
     marginTop: spacing.lg,
   },
   errorText: { flex: 1, fontFamily: font.textSemi, fontSize: 13, color: colors.error },
+
+  privacyNote: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: spacing.xl,
+    paddingHorizontal: spacing.md,
+  },
+  privacyNoteText: { fontFamily: font.text, fontSize: 12.5, color: colors.mutedText, textAlign: "center" },
+  privacyNoteLink: {
+    fontFamily: font.textBold,
+    fontSize: 12.5,
+    color: colors.brand,
+    textDecorationLine: "underline",
+  },
 
   ctaBar: {
     paddingHorizontal: spacing.xl,

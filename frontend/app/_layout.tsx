@@ -37,6 +37,7 @@ export default function RootLayout() {
             <Stack.Screen name="success" options={{ gestureEnabled: false }} />
             <Stack.Screen name="admin" />
             <Stack.Screen name="leads" options={{ gestureEnabled: false }} />
+            <Stack.Screen name="privacy" />
           </Stack>
         </KeyboardProvider>
       </SafeAreaProvider>
