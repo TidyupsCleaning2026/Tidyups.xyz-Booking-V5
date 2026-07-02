@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
 import PressableScale from "@/src/components/PressableScale";
@@ -23,6 +23,12 @@ const SERVICES = [
 export default function Home() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { crash } = useLocalSearchParams<{ crash?: string }>();
+
+  // Test hook: force a render error to validate the root error boundary.
+  if (crash === "1") {
+    throw new Error("Intentional crash to test ErrorBoundary");
+  }
 
   return (
     <View style={styles.root} testID="home-screen">
