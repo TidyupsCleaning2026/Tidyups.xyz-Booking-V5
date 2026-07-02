@@ -25,8 +25,8 @@ export default function Home() {
   const router = useRouter();
   const { crash } = useLocalSearchParams<{ crash?: string }>();
 
-  // Test hook: force a render error to validate the root error boundary.
-  if (crash === "1") {
+  // Test hook (dev only): force a render error to validate the root error boundary.
+  if (__DEV__ && crash === "1") {
     throw new Error("Intentional crash to test ErrorBoundary");
   }
 
